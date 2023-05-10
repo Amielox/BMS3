@@ -6,7 +6,7 @@
 		header('location: index.php');
 	}
 
-	$sql = "SELECT * FROM residents WHERE residentid = '".$_SESSION['residentid']."'";
+	$sql = "SELECT * FROM admin WHERE residentid = '".$_SESSION['residentid']."'";
 	$query = $conn->query($sql);
 	$user = $query->fetch_assoc();
 	

@@ -1,7 +1,7 @@
 <?php
   	session_start();
   	if(isset($_SESSION['residentid'])){
-    	header('location:portal.php');
+    	header('location:home.php');
   	}
 ?>
 
@@ -169,9 +169,6 @@ border-radius: 10px;
     </div>
     
     <button class="w-100 btn btn-lg btn-primary" style="background-color:#191352;border:none;" type="submit"  name="login">Sign in</button>
-<br><br>
-    <a  href="../Portal/registration_form.php" type="submit" name="register"><u>Create your account </u></a>
-  
     <p class="mt-2 mb-1 text-muted">&copy; 2021–2022</p>
 
   </form>

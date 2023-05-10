@@ -37,176 +37,18 @@
       color: #990000 !important;
     }
 </style>
-<div class="modal fade" id="addnew">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title"><b>Add New Resident</b></h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="residents_add.php" enctype="multipart/form-data">
-              <div class="form-group">
-              <div class="col-sm-6">
-                <h4><b>Basic Information</b></h4>
-              </div>
-              </div>
-                <div class="row">
-                    <div class="col-4">
-                      <label for="firstname" class="form-label">First Name</label>
-                      <input type="text" class="form-control" id="firstname" name="firstname" required>
-                    </div>
-                    <div class="col-4">
-                      <label for="lastname" class="form-label">Last Name</label>
-                      <input type="text" class="form-control" id="lastname" name="lastname" required>
-                    </div>
-                    <div class="col-4">
-                      <label for="middlename" class="form-label">Middle Name</label>
-                      <input type="text" class="form-control" id="middlename" name="middlename">
-                </div>
-                </div>
-            <div class="row">
-                <div class="col-3">
-                      <label for="age" class="form-label">Age</label>
-                      <input type="text" class="form-control" id="age" name="age" required>
-                    </div>
-                <div class="col-3">
-                      <label for="birthdate" class="form-label">Birth Date</label>
-                      <input type="date" class="form-control" id="birthdate" name="birthdate" required>
-                </div>
-                <div class="col-3">
-                      <label for="birthplace" class="form-label">Birth Place</label>
-                      <input type="text" class="form-control" id="birthplace" name="birthplace" required>
-                </div>
-                <div class="col-3">
-                  <label>Gender</label>
-                  <select class="form-control select2" name="gender" style="width: 100%;">
-                    <option selected="selected" value="Others">Others</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                      <label for="civilstatus" class="form-label">Civil Status</label>
-                      <input type="text" class="form-control" id="civilstatus" name="civilstatus" required>
-                </div>
-                <div class="col-3">
-                      <label for="street" class="form-label">Street</label>
-                      <input type="text" class="form-control" id="street" name="street" required>
-                </div>  
-                <div class="col-6">
-                      <label for="address" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="address" name="address" required>
-                </div> 
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-6">
-                <h4><b>Other Information</b></h4>
-              </div>
-              </div>
-            <div class="row">
-                    <div class="col-3">
-                      <label>Land Ownership Status</label>
-                      <select class="form-control select2" name="landownership" style="width: 100%;">
-                        <option selected="selected" value="Owned">Owned</option>
-                        <option value="Rent">Rent</option>
-                        <option value="Others">Others</option> 
-                      </select>
-                    </div>
-                    <div class="col-3">
-                      <label for="puroknumber" class="form-label">Purok Area No.</label>
-                      <input type="text" class="form-control" id="puroknumber" name="puroknumber" required>
-                    </div>    
-                    <div class="col-3">
-                      <label for="lengthstay" class="form-label">Length of Stay(In Months)</label>
-                      <input type="text" class="form-control" id="lengthstay" name="lengthstay" required>
-                    </div>
-                    <div class="col-3">
-                      <label>Home Ownership Status</label>
-                      <select class="form-control select2" name="houseownership" style="width: 100%;">
-                      <option selected="selected" value="Owned">Owned</option>
-                      <option value="Rent">Rent</option>
-                      <option value="Live with Parents/Relatives">Live with Parents/Relatives</option> 
-                      </select>
-                    </div>    
-                </div>
-                <div class="row">
-                  <div class="col-3">
-                      <label for="totalhousehold" class="form-label">Total Household No.</label>
-                      <input type="text" class="form-control" id="totalhousehold" name="totalhousehold" required>
-                    </div>   
-                    <div class="col-3">
-                      <label for="religion" class="form-label">Religion</label>
-                      <input type="text" class="form-control" id="religion" name="religion" >
-                    </div>
-                    <div class="col-3">
-                      <label for="phonenumber" class="form-label">Phone/Telephone Number</label>
-                      <input type="text" class="form-control" id="phonenumber" name="phonenumber">
-                    </div>
-                    <div class="col-3">
-                      <label for="email" class="form-label">Email Address</label>
-                      <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-3">
-                      <label for="nationality" class="form-label">Nationality</label>
-                      <input type="text" class="form-control" id="nationality" name="nationality" >
-                    </div>
-                    <div class="col-6">
-                      <label for="formeraddress" class="form-label">Former Address</label>
-                      <input type="text" class="form-control" id="formeraddress" name="formeraddress">
-                    </div>
-                    <div class="col-3">
-                      <label>Disable Person</label>
-                      <select class="form-control select2" name="disableperson" style="width: 100%;">
-                      <option selected="selected" value="No">No</option>
-                      <option value="Yes">Yes</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="row">
-                 <div class="col-3">
-                      <label>Registered</label>
-                      <select class="form-control select2"  name="registered" style="width: 100%;">
-                      <option selected="selected" value="No">No</option>
-                      <option value="Yes">Yes</option>
-                      </select>
-                    </div>
-                    <div class="col-3">
-                      <label for="barangayidno" class="form-label">Barangay ID No. (If have)</label>
-                      <input type="text" class="form-control" id="barangayidno" name="barangayidno">
-                    </div>
-                    <div class="col-6">
-                     <label for="photo" class="form-label">Photo</label>
-                     <input class="form-control form-control-sm" id="photo" name="photo" type="file">
-                     </div>
-                </div>
-                </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close" id="closea"></i> Close</button>
-              <button type="submit" class="btn btn-primary btn-flat" name="add"  id="save"><i class="fa fa-save"></i> Save</button>
-              </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Edit -->
 <div class="modal fade" id="edit">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                            <h3 class="modal-title"><b>Update Resident Information</b></h3>
+                            <h3 class="modal-title"><b>Update Information</b></h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="residents_edit.php" enctype="multipart/form-data">
+              <form class="form-horizontal" method="POST" action="edit-profile.php" enctype="multipart/form-data">
               <div class="form-group">
               <div class="col-sm-3">
                 <h4><b>Basic Information</b></h4>
@@ -269,87 +111,31 @@
                 <h4><b>Other Information</b></h4>
               </div>
               </div>
+              <div class="col-12"> 
+                      <label><h5>Check the conditions that apply to you or to any members of your immediate relatives:</h5></label>
+                <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="asthma" id="edit_asthma" name="asthma">
+            <label class="form-check-label" for="checkbox">Asthma </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="cancer" id="edit_cancer" name="cancer">
+            <label class="form-check-label" for="checkbox">Cancer</label>
+            </div>
             <div class="row">
-                    <div class="col-3">
-                      <label>Land Ownership Status</label>
-                      <select class="form-control select2" name="landownership" id="edit_landownership" style="width: 100%;">
-                        <option selected="selected" value="Owned">Owned</option>
-                        <option value="Rent">Rent</option>
-                        <option value="Others">Others</option> 
-                      </select>
-                    </div>
-                    <div class="col-3">
-                      <label for="puroknumber" class="form-label">Purok Area No.</label>
-                      <input type="text" class="form-control" id="edit_puroknumber" name="puroknumber" required>
-                    </div>    
-                    <div class="col-3">
-                      <label for="lengthstay" class="form-label">Length of Stay(In Months)</label>
-                      <input type="text" class="form-control" id="edit_lengthstay" name="lengthstay" required>
-                    </div>
-                    <div class="col-3">
-                      <label>Home Ownership Status</label>
-                      <select class="form-control select2" name="houseownership" id="edit_houseownership" style="width: 100%;">
-                      <option selected="selected" value="Owned">Owned</option>
-                      <option value="Rent">Rent</option>
-                      <option value="Live with Parents/Relatives">Live with Parents/Relatives</option> 
-                      </select>
-                    </div>    
-                </div>
-                <div class="row">
-                  <div class="col-3">
-                      <label for="totalhousehold" class="form-label">Total Household No.</label>
-                      <input type="text" class="form-control" id="edit_totalhousehold" name="totalhousehold" required>
-                    </div>   
-                    <div class="col-3">
-                      <label for="religion" class="form-label">Religion</label>
-                      <input type="text" class="form-control" id="edit_religion" name="religion" >
-                    </div>
-                    <div class="col-3">
-                      <label for="phonenumber" class="form-label">Phone/Telephone Number</label>
-                      <input type="text" class="form-control" id="edit_phonenumber" name="phonenumber">
-                    </div>
-                    <div class="col-3">
-                      <label for="email" class="form-label">Email Address</label>
-                      <input type="email" class="form-control" id="edit_email" name="email" required>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-3">
-                      <label for="nationality" class="form-label">Nationality</label>
-                      <input type="text" class="form-control" id="edit_nationality" name="nationality" >
-                    </div>
-                    <div class="col-6">
-                      <label for="formeraddress" class="form-label">Former Address</label>
-                      <input type="text" class="form-control" id="edit_formeraddress" name="formeraddress">
-                    </div>
-                    <div class="col-3">
-                      <label>Disable Person</label>
-                      <select class="form-control select2" name="disableperson" name="edit_disableperson" style="width: 100%;">
-                      <option selected="selected" value="Yes">Yes</option>
-                      <option value="No">No</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="row">
-                 <div class="col-3">
-                      <label>Registered</label>
-                      <select class="form-control select2"  name="registered" id="edit_registered" style="width: 100%;">
-                      <option selected="selected" value="Yes">Yes</option>
-                      <option value="No">No</option>
-                      </select>
-                    </div>
-                    <div class="col-3">
-                      <label for="barangayidno" class="form-label">Barangay ID No. (If have)</label>
-                      <input type="text" class="form-control" id="edit_barangayidno" name="barangayidno">
-                    </div>
-                    <div class="col-6">
-                     <label for="photo" class="form-label">Photo</label>
-                     <input class="form-control form-control-sm" id="photo" name="photo" type="file">
-                     </div>
+             <div class="col-12">
+            <label><h5>Are you currently taking any medications?</h5></label>
+                <div class="form-check">
+                <input class="form-check-input" type="radio"  value="Yes" name="edit_medicine" id="medicine">
+                <label class="form-check-label" for="medicine">Yes</label>
+            </div>
+                <div class="form-check">
+                <input class="form-check-input" type="radio" value="No" name="edit_medicine" id="medicine">
+                <label class="form-check-label" for="medicine">No</label>
+            </div>
                 </div>
                 </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close" id="closea"></i> Close</button>
+              <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close" id="close"></i> Close</button>
               <button type="submit" class="btn btn-primary btn-flat" name="edit"  id="save"><i class="fa fa-save"></i> Update</button>
               </form>
             </div>
@@ -367,7 +153,7 @@
                   <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" method="POST" action="residents_delete.php">
+              <form class="form-horizontal" method="POST" action="delete-profile.php">
                 <input type="hidden" class="id" name="id">
                 <div class="text-center">
                     <p>DELETE RESIDENT</p>

@@ -15,9 +15,8 @@
 		else{
 			$row = $query->fetch_assoc();
 			if(password_verify($password, $row['password'])){
-			//	$_SESSION['admin'] = $row['id'];
-       
-		$_SESSION['residentid'] = $row['residentid'];
+				
+        		$_SESSION['residentid'] = $row['residentid'];
 				$_SESSION['lastname'] = $row['lastname'];
 				$_SESSION['firstname'] = $row['firstname'];   
 				$_SESSION['gender'] = $row['gender'];
@@ -36,6 +35,6 @@
 		$_SESSION['error'] = 'Input admin credentials first';
 	}
 
-	header('location: portal.php');
+	header('location: index.php');
 
 ?>
