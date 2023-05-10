@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../css/dataTables.css">
+<!--<link rel="stylesheet" type="text/css" href="../css/dataTables.css">-->
 <!--<script type="text/javascript" charset="utf8" src="../js/dataTables.js"></script>-->
 
 
@@ -17,14 +17,16 @@
 <script src="../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Custom styles for print report-->
 
+   
 
 <!-- Page specific script -->
 <script>
   $(function () {
    $("#example3").DataTable({
-      "responsive": true, "lengthChange": true, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+      "responsive": true, "lengthChange": false, "autoWidth": false, "searching": false,"info": false, "paging": false, "ordering": false,
+      "buttons": [ ]
     }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(1)');
     $('#example2').DataTable({
       "paging": true,
@@ -45,11 +47,6 @@
       "responsive": true,
     });
   });
+ 
 </script>
-
-<script>
-  $(function () {
-    
-</script>
-
 

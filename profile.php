@@ -1,5 +1,3 @@
-
-
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/navbar.php'; ?>
 <?php include 'includes/sidebar.php'; ?>
@@ -14,13 +12,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Resident Profile</h1>
+            <h1 class="m-0"> Profile</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Resident</li>
-              <li class="breadcrumb-item active">Resident Profile</li>
+              <li class="breadcrumb-item active"> Profile</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,8 +32,9 @@
           <div class="col-md-3">
             <!-- Profile Image -->
             <?php
-                    $id = $_POST['submit'];
-                    $sql = "SELECT * FROM residents WHERE id='$id'";
+                    $id = $_SESSION['residentid'];
+                    $sql = "SELECT *,SYSDATE(),dob,DATEDIFF(SYSDATE(),dob)/365 AS AGE1 FROM residents WHERE residentid='$id'";
+                    
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){              
               ?>
@@ -46,7 +44,7 @@
               <div class='card-body box-profile'>
                 <div class='text-center'>
                   <img class='profile-user-img img-fluid img-circle'
-                  src="<?php echo (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg'; ?>"
+                  src="<?php echo (!empty($row['photo'])) ? '../images/'.$row['photo'] : 'images/profile.jpg'; ?>"
                        alt='User profile picture'>
                 </div>
 
@@ -56,8 +54,8 @@
                 <br>
                 <h4><b>Basic Information</b></h4>
                 <ul class="list-group list-group-unbordered mb-3">  
-                  <li class="list-group-item">
-                  <b>Age</b> <a class="float-right"><?php echo $row['age']; ?></a>  
+                  <li class="list-group-item">  
+                  <b>Age</b> <a class="float-right"><?php echo (round($row['AGE1'])); ?></a>  
                   </li>
                 <ul class="list-group list-group-unbordered mb-3">  
                   <li class="list-group-item">
@@ -65,15 +63,11 @@
                   </li>
                   <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                  <b>Phone Number</b> <a class="float-right"><?php echo $row['phonenumber']; ?></a>
+                  <b>Phone Number</b> <a class="float-right"><?php echo $row['contno']; ?></a>
                   </li>
                   <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                   <b>Purok No.</b> <a class="float-right"><?php echo $row['puroknumber']; ?></a>
-                  </li>
-                  <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                  <b>Street</b> <a class="float-right"><?php echo $row['street']; ?></a>
                   </li>
                   <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
@@ -91,10 +85,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills" id="nav">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" style="background-color:#060834 ; color:#D7D7D7;"><b>About</b></a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab" style="color: #060834"><b>Blotter</b></a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab" style="color: #060834"><b>Cencus</b></a></li>
-                </ul>
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab" id="nav" style="background-color:#060834 ; color:#D7D7D7;"><b>About</b></a></li>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
@@ -112,51 +103,47 @@
                     </div>
                     <div class="col-3">
                       <label for="religion" class="form-label">Civil Status</label>
-                      <input type="text" class="form-control" value="<?php echo $row['civilstatus']; ?>" readonly>
+                      <input type="text" class="form-control" value="<?php echo $row['cs']; ?>" readonly>
                     </div>
                   <div class="col-3">
                       <label for="totalhousehold" class="form-label">Birth Date</label>
-                      <input type="text" class="form-control" value="<?php echo $row['birthdate']; ?>" readonly>
+                      <input type="text" class="form-control" value="<?php echo $row['dob']; ?>" readonly>
                     </div>   
                     <div class="col-3">
                       <label for="phonenumber" class="form-label">Birth Place</label>
-                      <input type="text" class="form-control" value="<?php echo $row['birthplace']; ?>" readonly>
+                      <input type="text" class="form-control" value="<?php echo $row['pob']; ?>" readonly>
                     </div>
                 </div>    
                     <div class="row">
                     <div class="col-3">
-                      <label for="religion" class="form-label">Registered</label>
-                      <input type="text" class="form-control" value="<?php echo $row['registered']; ?>" readonly>
+                      <label for="religion" class="form-label">Resident Id</label>
+                      <input type="text" class="form-control" value="<?php echo $row['residentid']; ?>" readonly>
                     </div>
                     <div class="col-3">
-                      <label for="religion" class="form-label">Disable Person</label>
-                      <input type="text" class="form-control" value="<?php echo $row['disableperson']; ?>" readonly>
+                      <label for="religion" class="form-label">Occupation</label>
+                      <input type="text" class="form-control" value="<?php echo $row['occupation']; ?>" readonly>
                     </div>
                   <div class="col-3">
                       <label for="totalhousehold" class="form-label">Nationality</label>
                       <input type="text" class="form-control" value="<?php echo $row['nationality']; ?>" readonly>
                     </div>   
                     <div class="col-3">
-                      <label for="phonenumber" class="form-label">Barangay ID</label>
-                      <input type="text" class="form-control" value="<?php echo $row['barangayidno']; ?>" readonly>
+                      <label for="phonenumber" class="form-label">Religion</label>
+                      <input type="text" class="form-control" value="<?php echo $row['religion']; ?>" readonly>
                     </div>
                 </div>  
                 <div class="row">
-                <div class="col-3">
+                  <div class="col-4">
                       <label for="religion" class="form-label">Religion</label>
                       <input type="text" class="form-control" value="<?php echo $row['religion']; ?>" readonly>
                     </div>
-                  <div class="col-sm-3">
-                      <label for="totalhousehold" class="form-label">Length of Stay(In Months)</label>
-                      <input type="text" class="form-control" value="<?php echo $row['lengthstay']; ?>" readonly>
-                    </div>   
-                    <div class="col-3">
+                    <div class="col-4">
                       <label for="phonenumber" class="form-label">Land Ownership Status</label>
-                      <input type="text" class="form-control" value="<?php echo $row['landownership']; ?>" readonly>
+                      <input type="text" class="form-control" value="<?php echo $row['unt']; ?>" readonly>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                       <label for="email" class="form-label">Home Ownership Status</label>
-                      <input type="email" class="form-control" value="<?php echo $row['houseownership']; ?>" readonly>
+                      <input type="email" class="form-control" value="<?php echo $row['unt']; ?>" readonly>
                     </div>
                     </div>
                     <div class="row">
@@ -174,34 +161,31 @@
                   
                       <!-- timeline time label -->
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-12">
           <div class="box">
             <div class="box-body">
               <table id="example1" class="table table-head-fixed table-hover bg-light">
                 <thead>
-                  <th>Case No.</th>
-                  <th>Complainant</th>
-                  <th>Respondent</th>
-                  <th>Victim(s)</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                 
+                <th>Tracking Number</th>
+                <th>Document Type</th>
+                <th>Fullname</th>
+                <th>Date Issued</th>
+                <th>Status</th>
                 </thead>
                 <tbody>
                   <?php
                     $id = $_POST['submit'];
-                    $sql = "SELECT * FROM blotter WHERE residentno='$id'";
+                    $sql = "SELECT * FROM bmss WHERE id='$id'";
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
+                      $image = (!empty($row['photo'])) ? 'images/'.$row['photo'] : 'images/profile.jpg';
                       echo "
                           <tr>
-                          <td>".$row['no']."</td>
-                          <td>".$row['complainant']."</td>
-                          <td>".$row['respondent']."</td>
-                          <td>".$row['victims']."</td>
-                          <td>".$row['type']."</td>
+                          <td>".$row['trackingno']."</td>
+                          <td>".$row['purpose']."</td>
+                          <td>".$row['sname'].", " .$row['fname']." ".$row['mname']."</td>
+                          <td>".$row['di']."</td>
                           <td>".$row['status']."</td>
-                          
                         </tr>
                       ";
                     }
@@ -290,6 +274,15 @@
     $(this).css("background-color","#060834")
     $(this).css("color","#D7D7D7")
   });
+
+  $("nav").click(function(){
+    $("nav1").css("color","#060834")
+  });
+
+  $("nav1").click(function(){
+    $("nav").css("color","#060834")
+  });
+
 
   $(document).ready( function () {
     $('#example1').DataTable();
