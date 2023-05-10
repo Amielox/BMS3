@@ -3,9 +3,9 @@
 
 	if(isset($_POST['delete'])){
 		$id = $_POST['id'];
-		$sql = "DELETE FROM voters WHERE id = '$id'";
+		$sql = "DELETE FROM  admin WHERE id = '$id'";
 		if($conn->query($sql)){
-			$_SESSION['success'] = 'Voter deleted successfully';
+			$_SESSION['success'] = 'Admin deleted successfully';
 		}
 		else{
 			$_SESSION['error'] = $conn->error;
@@ -15,6 +15,6 @@
 		$_SESSION['error'] = 'Select item to delete first';
 	}
 
-	header('location: voters.php');
+	header('location: admin.php');
 	
 ?>

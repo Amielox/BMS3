@@ -51,7 +51,7 @@
                 <span aria-hidden="true">&times;</span></button>
             </div>
           <div class="modal-body">
-            <form class="form-horizontal" method="POST" action="positions_edit.php">
+            <form class="form-horizontal" method="POST" action="blotter_add.php">
               <div class="row">
                 <div class="col-6">
                   <label>Complainant (Resident No. - Lastname, Firstname, Middlename)</label>
@@ -68,8 +68,14 @@
                          ?>  
                       </select>
                   </div>
+                  <div class="col-6">
+                  <label>Status</label>
+                      <select class="form-control" id="residentstatusxx" name="residentstatusxx" style="width: 100%;">
+                      <option selected="selected" value="Non-Registered">Non-Registered</option>
+                      <option value="Registered">Registered</option>
+                      </select>
+                  </div>
                 </div>
-
                 <div class="row">
                   <div class="col-2">
                     <label for="residentno" class="form-label">Resident No.</label>
@@ -87,47 +93,50 @@
 
                 <div class="row">
                 <div class="col-6">
-                    <label for="age" class="form-label">Victim(s)</label>
-                    <input type="text" class="form-control" id="fullnamexx" name="fullnamexx" >
+                    <label for="victims" class="form-label">Victim(s)</label>
+                    <input type="text" class="form-control" id="victims" name="victims" >
                   </div>
                   <div class="col-6">
-                    <label for="age" class="form-label">Type</label>
-                    <input type="text" class="form-control" id="max_vote" name="max_vote" >
+                    <label for="type" class="form-label">Type</label>
+                    <input type="text" class="form-control" id="type" name="type" >
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-6">
-                    <label for="victims" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="victims" name="victims" >
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" >
                   </div>
                   <div class="col-6">
                     <label for="date" class="form-label">Date</label>
-                    <input type="date" class="form-control" id="max_vote" name="max_vote" >
+                    <input type="date" class="form-control" id="date" name="date" >
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="col-6">
                     <label for="time" class="form-label">Time</label>
-                    <input type="time" class="form-control" id="max_vote" name="max_vote" >
+                    <input type="time" class="form-control" id="time" name="time" >
                   </div>
                   <div class="col-6">
-                    <label for="age" class="form-label">Status</label>
-                    <input type="text" class="form-control" id="max_vote" name="max_vote" >
-                  </div>
+                      <label>Status</label>
+                      <select class="form-control" id="status" name="status" style="width: 100%;">
+                      <option selected="selected" value="Active">Active</option>
+                      <option value="Settled">Settled</option>
+                      </select>
+                    </div>    
                 </div>
 
                 <div class="row">
                   <div class="col-12">
-                    <label for="age" class="form-label">Details</label>
-                    <textarea class="form-control" id="platform" name="platform" rows="3"></textarea>
+                    <label for="details" class="form-label">Details</label>
+                    <textarea class="form-control" id="details" name="details" rows="3"></textarea>
                   </div>
                 </div>
                             
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close"></i> Close</button>
-              <button type="submit" class="btn btn-success btn-flat" name="edit" id="save"><i class="fa fa-check-square-o"></i> Save</button>
+              <button type="submit" class="btn btn-success btn-flat" name="add" id="add"><i class="fa fa-check-square-o"></i> Save</button>
             </form>
             </div>
         </div>
@@ -215,6 +224,7 @@
         console.log(gg.fullnamex);
         $("#fullnamexx").val(gg.fullnamex);
         $("#residentno").val(gg.residentnox);
+        $("#residentstatusxx").val(gg.residentstatusx);
         }
       })
     }

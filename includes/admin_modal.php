@@ -106,7 +106,7 @@
     <div class="modal-dialog modal-m">
         <div class="modal-content">
             <div class="modal-header">
-                            <h3 class="modal-title"><b>Update Resident Information</b></h3>
+                            <h3 class="modal-title"><b>Update Admin Information</b></h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
             </div>
@@ -180,7 +180,7 @@
               <form class="form-horizontal" method="POST" action="admin_delete.php">
                 <input type="hidden" class="id" name="id">
                 <div class="text-center">
-                    <p>DELETE RESIDENT</p>
+                    <p>DELETE ADMIN</p>
                     <h2 class="bold fullname"></h2> 
                 </div>
             </div>

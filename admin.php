@@ -13,7 +13,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h4 class="m-0">Manage Admin</h4>
+            <h4 class="m-0">Health</h4>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -53,45 +53,58 @@
       ?>
       <div class="row">
           <div class="col-12">
-              <div class="card-header">   
-                     <a href="#addnew" data-toggle="modal" class=" btn-success btn-sm btn-flat float-left "><i class="fa fa-plus"></i> New</a>
-              </div>
               <div class="card-body">
-                  <table id="example1" class="table table-head-fixed table-hover bg-light  ">
-                <thead>
-                  <th>No.</th>
-                  <th>Username</th>
-                  <th>Lastname</th>
-                  <th>Firstname</th>
-                  <th>Category</th>
-                  <th width="20%">Action</th>
-                </thead>
-                <tbody>
-                  <?php
-                    $sql = "SELECT * FROM admin";
-                    $query = $conn->query($sql);
-                    while($row = $query->fetch_assoc()){
-                      $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
-                      echo "
-                          <tr>
-                          <td>".$row['id']."</td>
-                          <td>".$row['username']."</td>
-                          <td>".$row['lastname']."</td>
-                          <td>".$row['firstname']."</td>
-                          <td>".$row['category']."</td>
-                          <td>
-                          <form method='POST' action='profile.php'>           
-                          <input type='hidden' style='display:none;'  name='submit' class='ss' id='submit' value=".$row['id'].">      
-                            <button class=' btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                            <button class=' btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                            </form>
-                          </td>
-                        </tr>
-                      ";
-                    }
-                  ?>
-                </tbody>
-              </table>
+              <form class="form-horizontal" method="POST" action="admin_add.php" enctype="multipart/form-data">
+            <div class="form-group">
+              </div>
+                <div class="row">
+                  <div class="col-6">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                  </div>
+                  <div class="col-6">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label>Category</label>
+                      <select class="form-control select2" name="category" style="width: 100%;">
+                        <option selected="selected" value="Admin">Admin</option>
+                        <option value="Super Admin">Super Admin</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                     <label for="photo" class="form-label">Photo</label>
+                     <input class="form-control form-control-sm" id="photo" name="photo" type="file">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close" id="closea"></i> Close</button>
+                <button type="submit" class="btn btn-primary btn-flat" name="add"  id="save"><i class="fa fa-save"></i> Save</button>
+              </form>
             </div>
           </div>
         </div>

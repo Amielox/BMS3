@@ -41,7 +41,7 @@
 		$drugs = $_POST['drugs'];
 		$alcohol = $_POST['alcohol'];
 
-		$sql = "INSERT INTO hmf (firstname, lastname, middlename, age, birthdate, birthplace, gender, civilstatus, street, address, asthma, cancer, diabetes, hypertension, epilepsy, dizziness, snoring, chestpain, abdominalpain, heartburn, fever, headache, vomitting, hunger, rash, insomnia, mens, pregnancies, births, birth_control, irreg_period, medicine, medicinetype, allergies, tobacco, drugs, alcohol) 
+		$sql = "INSERT INTO residents (firstname, lastname, middlename, age, birthdate, birthplace, gender, civilstatus, street, address, asthma, cancer, diabetes, hypertension, epilepsy, dizziness, snoring, chestpain, abdominalpain, heartburn, fever, headache, vomitting, hunger, rash, insomnia, mens, pregnancies, births, birth_control, irreg_period, medicine, medicinetype, allergies, tobacco, drugs, alcohol) 
 		VALUES ('$firstname', '$lastname', '$middlename', '$age', '$birthdate', '$birthplace', '$gender', '$civilstatus', '$street', '$address', '$asthma', '$cancer', '$diabetes', '$hypertension', '$epilepsy', '$dizziness', '$snoring', '$chestpain', '$abdominalpain', '$heartburn', '$fever', '$headache', '$vomitting', '$hunger', '$rash', '$insomnia', '$mens', '$pregnancies', '$births', '$birth_control', '$irreg_period', '$medicine', '$medicinetype', '$allergies', '$tobacco', '$drugs', '$alcohol')";
 		if($conn->query($sql)){
 			$_SESSION['success'] = 'Form recorded successfully';

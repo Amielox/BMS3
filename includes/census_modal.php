@@ -46,21 +46,21 @@
                   <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-          <form class="form-horizontal" method="POST" action="admin_add.php" enctype="multipart/form-data">
+          <form class="form-horizontal" method="POST" action="census_add.php" enctype="multipart/form-data">
             <div class="form-group">
               <div class="col-sm-6">
               </div>
               </div>
                 <div class="row">
                   <div class="col-12">
-                    <label for="username" class="form-label">Year</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <label for="year" class="form-label">Year</label>
+                    <input type="month" class="form-control" id="year" name="year" required>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <label for="firstname" class="form-label">Population</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" required>
+                    <label for="population" class="form-label">Population</label>
+                    <input type="text" class="form-control" id="population" name="population" required>
                   </div>
                 </div>
 
@@ -68,7 +68,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal" id="close"><i class="fa fa-close" id="closea"></i> Close</button>
-                <button type="submit" class="btn btn-primary btn-flat" name="add"  id="save"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary btn-flat" name="add" id="save"><i class="fa fa-save"></i> Save</button>
               </form>
             </div>
         </div>

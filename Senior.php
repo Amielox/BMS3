@@ -14,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Resident Profile</h1>
+            <h1 class="m-0">Senior Citizen</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Profile</li>
+              <li class="breadcrumb-item active">Senior</li>
               
             </ol>
           </div><!-- /.col -->
@@ -41,23 +41,23 @@
                 <thead>
                 <th>No.</th>
                 <th>Fullname</th>
-                <th>Gender</th>
-                <th>Email</th> 
+                <th>Age</th>
+                <th>Gender</th> 
                 <th>Phone Number</th>
                 <th>Address</th> 
               </thead>
   
                 <tbody>
-                  <?php
-                    $sql = "SELECT * FROM residents";
-                    $query = $conn->query($sql);
+                <?php
+                       $sql = "SELECT SYSDATE(),dob,DATEDIFF(SYSDATE(),dob)/365 AS AGE from residents WHERE(DATEDIFF(SYSDATE(), dob)/365)>=60";
+                       $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
                       echo "
                           <tr>
                           <td>".$row['residentid']."</td>
                           <td>".$row['firstname'] ." ".$row['lastname']."</td>
+                          <td>".$row['age']."</td>
                           <td>".$row['gender']."</td>
-                          <td>".$row['email']."</td>
                           <td>".$row['contno']."</td>
                           <td>".$row['address']."</td>
                         </tr>

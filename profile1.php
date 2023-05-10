@@ -19,7 +19,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Profile</li>
+              <li class="breadcrumb-item active">Resident Profile</li>
               
             </ol>
           </div><!-- /.col -->
@@ -28,52 +28,47 @@
     </div>
     <!-- /.content-header -->
 
- 
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
             <!-- Profile Image -->
-         
             <div class="box-body">
               <table id="example1" class="table table-head-fixed table-hover bg-light">
                 <thead>
-                <th>No.</th>
-                <th>Fullname</th>
-                <th>Gender</th>
-                <th>Email</th> 
-                <th>Phone Number</th>
-                <th>Address</th> 
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Allergic to vaccine</th>
+                <th>Comorbidities</th> 
+                <th>Schedule</th>
+                <th>Site</th> 
               </thead>
-  
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM residents";
+                    $id = $_POST['submit'];
+                    $sql = "SELECT * FROM covidbooster WHERE id='$id'";
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
                       echo "
                           <tr>
-                          <td>".$row['residentid']."</td>
-                          <td>".$row['firstname'] ." ".$row['lastname']."</td>
-                          <td>".$row['gender']."</td>
-                          <td>".$row['email']."</td>
-                          <td>".$row['contno']."</td>
-                          <td>".$row['address']."</td>
+                          <td>".$row['category']."</td>
+                          <td>".$row['priority']."</td>
+                          <td>".$row['allergy']."</td>
+                          <td>".$row['comorbidities']."</td>
+                          <td>".$row['sched']."</td>
+                          <td>".$row['site']."</td>
                         </tr>
                       ";
-                    }
+                  }
+                  ;
                   ?>
                 </tbody>
               </table>
             </div>
-  
           </div> 
       </div>
   </div>
-                  <!-- /.tab-pane -->
-
-                  <div class="tab-pane" id="settings">
                     
                   </div>
                   <!-- /.tab-pane -->

@@ -1,141 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'includes/session.php'; ?>
+<?php include 'includes/navbar.php'; ?>
+<?php include 'includes/sidebar.php'; ?>
+<?php include 'includes/slugify.php'; ?>
+<?php include 'includes/header.php'; ?>
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Culiat Health Monitoring</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets1/img/favicon.png" rel="icon">
-  <link href="assets1/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets1/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets1/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets1/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets1/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets1/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets1/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets1/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets1/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Arsha - v4.9.1
-  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center"> 
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      
-      <nav id="navbar" class="navbar">
-        <i class="bi bi-list mobile-nav-toggle"></i>
-        <div class="pic"><img src="assets1/img/LOGO.jpg" class="img-fluid" alt="" style="width:55px; height:55px; margin-right:10px;"></div>
-          <h1 style="color:white;">Barangay Culiat Health Services</h1>
-      </nav><!-- .navbar --> 
-
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a class="text-muted" href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
+    <!-- /.content-header -->
 
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <div class="d-flex justify-content-center justify-content-lg-start">
-          
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-  
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg" >
-      <div class="container" data-aos="fade-up" style="height: 425px;">
-
-        <div class="section-title">
-          <h2>Services</h2>
-        </div>
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="hmform.php">Health Monitoring Form</a></h4>
-                 </div>
-          </div>
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-blue lb">
+            <div class="inner">
+              <?php
+                $sql = "SELECT * FROM residents";
+                $query = $conn->query($sql);
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
 
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="CBForm.php">Covid Vaxx and Booster</a></h4>
+              <p>Users</p>
             </div>
+            <div class="icon">
+              <i class="fa fa-users"></i>
+            </div>
+            <a href="profile.php" class="small-box-footer ">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+      
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-blue gg">
+            <div class="inner"> 
+               <?php
+                       $sql = "SELECT SYSDATE(),dob,DATEDIFF(SYSDATE(),dob)/365 AS AGE from residents WHERE(DATEDIFF(SYSDATE(), dob)/365)>=60";
+                       $query = $conn->query($sql);
+  
+                       echo "<h3>".$query->num_rows."</h3>";
+                    ?>    
+             
+              <p>Senior Citizen</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-tasks"></i>
+            </div>
+            <a href="Senior.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-blue gr">
+            <div class="inner">
+              <?php
+                $sql = "SELECT * FROM hmf WHERE PWD='yes'";
+                $query = $conn->query($sql);
+
+                echo "<h3>".$query->num_rows."</h3>";
+              ?>
+
+              <p>PWD</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-list"></i>
+            </div>
+            <a href="pwd.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
       </div>
-    </section><!-- End Services Section -->
 
-  </main><!-- End #main -->
+      <div class="row">
+<div class='col-md-12'>
+      <?php
+        if(isset($_SESSION['error'])){
+          echo "
+          
+            <div class=' alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-warning'></i> Error!</h4>
+              ".$_SESSION['error']."
+            </div>
+          ";
+          unset($_SESSION['error']);
+        }
+        if(isset($_SESSION['success'])){
+          echo "
+            <div class='alert alert-success alert-dismissible'>
+              <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+              <h4><i class='icon fa fa-check'></i> Success!</h4>
+              ".$_SESSION['success']."
+            </div>
+          ";
+          unset($_SESSION['success']);
+        }
+      ?></div></div>
+    <!-- Main content -->
+    <section class="content">
+        <!-- /.row -->
+ 
+ 
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
+<!-- ChartJS -->
+<script src="../plugins/chart.js/Chart.min.js"></script>
 
 
+<!-- Page specific script -->
 
-    <div class="container footer-bottom clearfix">
-      <div class="copyright">
-        &copy;Copyright<strong><span> All Rights Reserved </span></strong>. 
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ --
-          <a href="https://bootstrapmade.com/"></a>
-      </div>
+
+          
+      </div><!-- /.container-fluid -->
     </div>
-  </footer><!-- End Footer -->
+    <!-- /.content -->
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets1/vendor/aos/aos.js"></script>
-  <script src="assets1/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets1/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets1/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets1/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets1/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets1/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets1/js/main.js"></script>
-
+  </div>
+  <!-- /.content-wrapper -->
+</section>
+</div>
+</div>
+<!-- ./wrapper -->
+<?php include 'includes/footer.php'; ?>
 </body>
-
 </html>
