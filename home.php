@@ -1,141 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'db_connect.php' ?>
+<style>
+   span.float-right.summary_icon {
+    font-size: 3rem;
+    position: absolute;
+    right: 1rem;
+    color: #ffffff96;
+}
+</style>
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<div class="containe-fluid">
 
-  <title>Culiat Health Monitoring</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+	<div class="row mt-3 ml-3 mr-3">
+			<div class="col-lg-12">
+    			<div class="card">
+    				<div class="card-body">
+    				<?php echo "Welcome back ". $_SESSION['login_name']."!"  ?>
+    					<hr>	
 
-  <!-- Favicons -->
-  <link href="assets1/img/favicon.png" rel="icon">
-  <link href="assets1/img/apple-touch-icon.png" rel="apple-touch-icon">
+                        <div class="row">
+                            <div class="col-lg-8 offset-2">
+                                <div class="container-fluid">
+                                <form action="" id="manage-records">
+                                    <input type="hidden" name="id" value="<?php echo isset($id) ? $id :'' ?>">
+                                    <div class="form-group">
+                                        <label for="" class="control-label">Tracking ID</label>
+                                        <input type="number" class="form-control" id="tracking_id" name="tracking_id"  value="<?php echo isset($tracking_id) ? $tracking_id :'' ?>" required autocomplete="off">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-sm btn-primary btn-sm col-sm-2 btn-block float-right" type="button" id="check">Check</button>
+                                        </div>
+                                    </div>
+                                    <div id="details" <?php echo isset($id) ? "style='display:block'" : 'style="display:none"' ?>>
+                                        <p><b>Name: <span id="name"><?php echo isset($id) ? ucwords($name) : '' ?></span></b></p>
+                                        <p><b>Address: <span id="address"><?php echo isset($id) ? $caddress : '' ?></span></b></p>
+                                        <input type="hidden" name="person_id" value="<?php echo isset($person_id) ? $person_id : '' ?>">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Temperature</label>
+                                            <input type="text" class="form-control" name="temperature"  value="<?php echo isset($temperature) ? $temperature :'' ?>" required>
+                                        </div>
+                                        <?php if($_SESSION['login_type'] == 1): ?>
+                                        <div class="form-group">
+                                            <label for="" class="control-label">Establishment</label>
+                                            <select name="establishment_id" id="" class="custom-select select2">
+                                                <option value=""></option>
+                                        <?php 
+                                            $establishment = $conn->query("SELECT * FROM establishments order by name asc");
+                                            while($row= $establishment->fetch_assoc()):
+                                        ?>
+                                                <option value="<?php echo $row['id'] ?>" <?php echo isset($establishment_id) && $row['id'] == $establishment_id ? 'selected' : '' ?>><?php echo $row['name'] ?></option>
+                                        <?php endwhile; ?>
+                                            </select>
+                                        </div>
+                                        <?php else: ?>
+                                        <input type="hidden" name="establishment_id" value="<?php echo isset($establishment_id) ? $establishment_id : $_SESSION['login_establishment_id'] ?>">
+                                        <?php endif; ?>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <button class="btn btn-sm btn-secondary btn-block col-sm-2 float-right" type="button" onlclick='reset_form()'>Cancel</button>
+                                        <button class="btn btn-sm btn-primary btn-block col-sm-2 float-right mt-0 mr-2">Save</button>
 
-  <!-- Vendor CSS Files -->
-  <link href="assets1/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets1/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets1/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets1/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets1/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets1/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets1/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+                                    </div>
+                                    
+                                </div>
+                                </div>
 
-  <!-- Template Main CSS File -->
-  <link href="assets1/css/style.css" rel="stylesheet">
+                                </form>
+                            </div>
+                            </div>
+                        </div>      			
+    				</div>
+    				
+    				
+    		      </div>
+                </div>
+	</div>
+<hr>
 
-  <!-- =======================================================
-  * Template Name: Arsha - v4.9.1
-  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
+</div>
+<script>
+	$('#manage-records').submit(function(e){
+        e.preventDefault()
+        start_load()
+        $.ajax({
+            url:'ajax.php?action=save_track',
+            data: new FormData($(this)[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            success:function(resp){
+                resp=JSON.parse(resp)
+                if(resp.status==1){
+                    alert_toast("Data successfully saved",'success')
+                    setTimeout(function(){
+                        location.reload()
+                    },800)
 
-<body>
+                }
+                
+            }
+        })
+    })
+    $('#tracking_id').on('keypress',function(e){
+        if(e.which == 13){
+            get_person()
+        }
+    })
+    $('#check').on('click',function(e){
+            get_person()
+    })
+    function get_person(){
+            start_load()
+        $.ajax({
+                url:'ajax.php?action=get_pdetails',
+                method:"POST",
+                data:{tracking_id : $('#tracking_id').val()},
+                success:function(resp){
+                    if(resp){
+                        resp = JSON.parse(resp)
+                        if(resp.status == 1){
+                            $('#name').html(resp.name)
+                            $('#address').html(resp.address)
+                            $('[name="person_id"]').val(resp.id)
+                            $('#details').show()
+                            end_load()
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center"> 
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      
-      <nav id="navbar" class="navbar">
-        <i class="bi bi-list mobile-nav-toggle"></i>
-        <div class="pic"><img src="assets1/img/LOGO.jpg" class="img-fluid" alt="" style="width:55px; height:55px; margin-right:10px;"></div>
-          <h1 style="color:white;">Barangay Culiat Health Services</h1>
-      </nav><!-- .navbar --> 
-
-    </div>
-
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <div class="d-flex justify-content-center justify-content-lg-start">
-          
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-  
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services section-bg" >
-      <div class="container" data-aos="fade-up" style="height: 425px;">
-
-        <div class="section-title">
-          <h2>Services</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="hmform.php">Health Monitoring Form</a></h4>
-                 </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="CBForm.php">Covid Vaxx and Booster</a></h4>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Services Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-
-
-
-    <div class="container footer-bottom clearfix">
-      <div class="copyright">
-        &copy;Copyright<strong><span> All Rights Reserved </span></strong>. 
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ --
-          <a href="https://bootstrapmade.com/"></a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets1/vendor/aos/aos.js"></script>
-  <script src="assets1/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets1/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets1/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets1/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets1/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets1/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets1/js/main.js"></script>
-
-</body>
-
-</html>
+                        }else if(resp.status == 2){
+                            alert_toast("Unknow tracking id.",'danger');
+                            end_load();
+                        }
+                    }
+                }
+            })
+    }
+</script>
