@@ -1,22 +1,24 @@
-<?php include 'includes/header.php'; ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/navbar.php'; ?>
 <?php include 'includes/sidebar.php'; ?>
 <?php include 'includes/slugify.php'; ?>
+<?php include 'includes/header.php'; ?>
 
-  <!-- Content Wrapper. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h4 class="m-0">Manage Reports</h4>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a class="text-muted" href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Reports</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,101 +29,15 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue lb">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM positions";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>Total Residents</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-tasks"></i>
-            </div>
-            <a href="positions.php" class="small-box-footer ">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue gy">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM candidates";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-          
-              <p>Total Household</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-black-tie"></i>
-            </div>
-            <a href="candidates.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue gg">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM voters";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-             
-              <p>Blotter Records</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-users"></i>
-            </div>
-            <a href="voters.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue gr">
-            <div class="inner">
-              <?php
-                $sql = "SELECT * FROM votes GROUP BY voters_id";
-                $query = $conn->query($sql);
-
-                echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <p>Census  <script>document.write(new Date().getFullYear());</script></p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-edit"></i>
-            </div>
-            <a href="votes.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-
-      <div class="row">
-<div class='col-md-12'>
       <?php
         if(isset($_SESSION['error'])){
           echo "
-          
-            <div class=' alert-dismissible'>
+            <div class='alert alert-danger alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
               <h4><i class='icon fa fa-warning'></i> Error!</h4>
               ".$_SESSION['error']."
             </div>
-          ";
+          ";  
           unset($_SESSION['error']);
         }
         if(isset($_SESSION['success'])){
@@ -134,12 +50,57 @@
           ";
           unset($_SESSION['success']);
         }
-      ?></div></div>
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-6">
+      ?><a href="javascript:demoFromHTML()" class="button">Run Code</a>
+<div id="content">
+    <h1>  
+        We support special element handlers. Register them with jQuery-style.
+    </h1>
+
+<script>
+    function demoFromHTML() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        // source can be HTML-formatted string, or a reference
+        // to an actual DOM element from which the text will be scraped.
+        source = $('#content')[0];
+
+        // we support special element handlers. Register them with jQuery-style 
+        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+        // There is no support for any other type of selectors 
+        // (class, of compound) at this time.
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+        // all coords and widths are in jsPDF instance's declared units
+        // 'inches' in this case
+        pdf.fromHTML(
+            source, // HTML string or DOM elem ref.
+            margins.left, // x coord
+            margins.top, { // y coord
+                'width': margins.width, // max width of content on PDF
+                'elementHandlers': specialElementHandlers
+            },
+
+            function (dispose) {
+                // dispose: object with X, Y of the last line add to the PDF 
+                //          this allow the insertion of new lines after html
+                pdf.save('Test.pdf');
+            }, margins
+        );
+    }
+</script>
+      <div class="row">
+       
+             <div class="col-md-6">
            <!-- BAR CHART -->
             <div class="chart">     
               <div class="card card-outline">
@@ -180,7 +141,7 @@
         </div>
         <!-- /.row -->
  
- 
+ </div>
 
 <!-- ChartJS -->
 <script src="../plugins/chart.js/Chart.min.js"></script>
@@ -308,17 +269,51 @@
             }
         }
         </script>
-          
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-
+          <div class="card-body">  
+                  
+                  <table id="example3" class="table table-head-fixed table-hover bg-light  ">
+                <thead>
+                  <th>No.</th>
+                  <th>Full Name</th>
+                  <th>Purok No.</th>
+                  <th>Registered</th>
+                  
+                </thead>
+                <tbody>
+                  <?php
+                    $sql = "SELECT * FROM residents";
+                    $query = $conn->query($sql);
+                    while($row = $query->fetch_assoc()){
+                      $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/profile.jpg';
+                      echo "
+                          <tr>
+                          <td>".$row['id']."</td>
+                          <td>".$row['lastname'] . ", " .$row['firstname']. " " .$row['middlename']. "</td>
+                          <td>".$row['puroknumber']."</td>
+                          <td>".$row['registered']."</td>
+                         
+                        </tr>
+                      ";
+                    }
+                  ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>   
   </div>
-  <!-- /.content-wrapper -->
+</div>
+    
+  <?php include 'includes/footer.php'; ?>
 
 </div>
-</div>
-<!-- ./wrapper -->
-<?php include 'includes/footer.php'; ?>
+
+
+
+
+
+
 </body>
 </html>

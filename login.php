@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'login/conn.php';
+	include 'includes/conn.php';
 
 	if(isset($_POST['login'])){
 		$username = $_POST['username'];
@@ -10,7 +10,7 @@
 		$query = $conn->query($sql);
 
 		if($query->num_rows < 1){
-			$_SESSION['error'] = 'Cannot find account with the User ID';
+			$_SESSION['error'] = 'Cannot find account with the username';
 		}
 		else{
 			$row = $query->fetch_assoc();
